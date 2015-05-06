@@ -1,4 +1,4 @@
-sample
+Ashmi Wordpress Theme
 ======
 
-sample
+This is my first wordpress theme for wordpress.org
