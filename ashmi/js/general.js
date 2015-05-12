@@ -1,42 +1,57 @@
 /*---------------------------------------------------------------------*/
-var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 ;(function($){
+/*================= Global Variable Start =================*/		   
+var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+var IEbellow9 = !$.support.leadingWhitespace;
+var iPhoneAndiPad = /iPhone|iPod/i.test(navigator.userAgent);
+function isIE () {
+  var myNav = navigator.userAgent.toLowerCase();
+  return (myNav.indexOf('msie') != -1) ? parseInt(myNav.split('msie')[1]) : false;
+}
+//if (isIE () == 8) {}
+/*================= Global Variable End =================*/	
 
+/*================= On Document Load Start =================*/	
 $(document).ready( function(){
-	ww = document.body.clientWidth;
 	$('body').removeClass('noJS').addClass("hasJS");
 	/*Navigation */
-	if( $("#nav").length) {
-		$(".toggleMenu").click(function(e) {
-			e.preventDefault();
-			$(this).toggleClass("active");
-			$("#nav").slideToggle();
-			$("#nav li").removeClass("resHover")
-			$(".resIcon").removeClass("active")
-			return false;
-		});
-		$("#nav li a").each(function() {
-			if ($(this).next().length) {
-				$(this).parent().addClass("parent");
-			};
-		})
-		$("#nav li.parent").each(function () {
-            if ($(this).has(".menuIcon").length <= 0) $(this).append('<i class="menuIcon">&nbsp;</i>')
-        });
-		dropdown('nav', 'hover', 1);
-		adjustMenu();
-	}	
-	if( $(".btnClose").length) {
-		$(".btnClose").click(function(e) {
-			e.preventDefault();
-			$(this).parent().fadeOut('slow');
-			return false;
-		});
-	}	
-	// BX Slider Script
-	if( $(".owlCarousel").length) {
-		$('.owlCarousel').owlCarousel({
+	
+	if( $("#siteNavigation").length){
+	   $('.menuToggle').click(function(){
+		  if ($(this).hasClass('active')) {
+			   $(this).removeClass('active');
+			   $(this).find('.genericon').removeClass('genericon-close-alt');
+			   $(this).find('.genericon').addClass('genericon-menu');
+			   $(this).next().fadeOut();
+		  } else {
+			   $(this).addClass('active');
+			   $(this).find('.genericon').removeClass('genericon-menu');
+			   $(this).find('.genericon').addClass('genericon-close-alt');
+			   $(this).next().fadeIn();
+		  }
+		  return false;
+	   });
+	};
+	
+	// Index Banner Slider
+	if( $(".indexBanner").length) {
+		var owl = $(".sliderBanner");
+		owl.owlCarousel({
 			loop:true,
+			autoplay:true,
+			autoplayTimeout:3000,
+			smartSpeed:1200,
+			nav:true,
+			items : 1,
+			//dots : false		
+		});
+	}
+	if( $(".carouselBlock").length) {
+		$('.carouselBlock').owlCarousel({
+			loop:true,
+			autoplay:true,
+			autoplayTimeout:3000,
+			smartSpeed:1200,
 			margin:10,
 			nav:true,
 			responsive:{
@@ -51,45 +66,7 @@ $(document).ready( function(){
 				}
 			}
 		})
-	}	
-	
-	// Content Tabing Script
-	if( $(".tabbing").length) {
-		$('.tabbing').responsiveTabs({
-			startCollapsed: 'accordion', //accordion
-			collapsible: 'accordion' //accordion
-
-		});
-	}	
-	// Accordian List Script
-	if( $(".accordion").length){
-		   $('.accordion .accordDetail').hide();
-		   $('.accordion h4 a').click(function(){
-			  if ($(this).hasClass('active')) {
-				   $(this).removeClass('active');
-				   $(this).parent().next().slideUp();
-			  } else {
-				   $('.accordion h4 a').removeClass('active');
-				   $(this).addClass('active');
-				   $('.accordion .accordDetail').slideUp();
-				   $(this).parent().next().slideDown();
-			  }
-			  return false;
-		   });
-	};
-	
-	$('.ticker').each(function(i){
-		$(this).addClass('tickerDiv'+i).attr('id', 'ticker'+i);
-		$('#ticker'+i).find('.tickerDivBlock').first().addClass('newsTikker'+i).attr('id', 'newsTikker'+i);
-		$('#ticker'+i).find('a').first().attr('id', 'stopNews'+i)
-		$('#newsTikker'+i).vTicker({ speed: 1E3, pause: 4E3, animation: "fade", mousePause: false, showItems: 3, height: 138, direction: 'up' })
-		$("#stopNews"+i).attr("href", "#").toggle(function () {
-			$(this).removeClass("stop").addClass("play").text("Play").attr('title', 'Play');
-			}, function () {
-			$(this).removeClass("play").addClass("stop").text("Pause").attr('title', 'pause');
-		}); 
-	});
-	
+	}
 	if( $(".marqueeScrolling li").length > 1){
 		var $mq = $('.marquee').marquee({
 			speed: 25000,
@@ -109,7 +86,78 @@ $(document).ready( function(){
 		});
 	}
 	
-
+	// Multiple Ticker	
+	if( $(".ticker").length){
+		$('.ticker').each(function(i){
+			$(this).addClass('tickerDiv'+i).attr('id', 'ticker'+i);
+			$('#ticker'+i).find('.tickerDivBlock').first().addClass('newsTikker'+i).attr('id', 'newsTikker'+i);
+			$('#ticker'+i).find('a.playPause').attr('id', 'stopNews'+i)
+			$('#newsTikker'+i).vTicker({ speed: 1E3, pause: 4E3, animation: "fade", mousePause: false, showItems: 3, height: 150, direction: 'up' })
+			$("#stopNews"+i).click(function () {
+				if($(this).hasClass('stop')){
+					$(this).removeClass("stop").addClass("play").text("Play").attr('title', 'Play');
+				}else{
+					$(this).removeClass("play").addClass("stop").text("Pause").attr('title', 'pause');
+				}
+				return false;
+			});
+		});
+	}
+	// Responsive Tabing Script
+	if( $(".equalHeights").length) {
+		$('.equalHeights .cols4').equalHeight();
+	}
+	// Responsive Tabing Script
+	if( $(".resTab").length) {
+		$('.resTab').responsiveTabs({
+			rotate: false,
+			scrollToAccordion: true,
+			startCollapsed: 'tab', //accordion
+			collapsible: 'tab', //accordion
+		});
+	}
+	if( $(".accordion").length){
+	   $('.accordion .accordDetail').hide();
+	   $(".accordion .accordDetail:first").show(); 
+	   $(".accordion .accTrigger:first").addClass("active");	
+	   $('.accordion .accTrigger').click(function(){
+		  if ($(this).hasClass('active')) {
+			   $(this).removeClass('active');
+			   $(this).next().slideUp();
+		  } else {
+			   $('.accordion .accTrigger').removeClass('active');
+			   $(this).addClass('active');
+			   $('.accordion .accordDetail').slideUp();
+			   $(this).next().slideDown();
+		  }
+		  return false;
+	   });
+	};
+	
+	// Responsive Table
+	if( $(".responsiveTable").length){
+		$(".responsiveTable").each(function(){
+		$(this).wrap('<div class="tableOut"></div>');
+		$(this).find('td').removeAttr('width');
+		//$(this).find('td').removeAttr('align');
+		var head_col_count =  $(this).find('tr th').size();
+		// loop which replaces td
+		for ( i=0; i <= head_col_count; i++ )  {
+			// head column label extraction
+			var head_col_label = $(this).find('tr th:nth-child('+ i +')').text();
+			// replaces td with <div class="column" data-label="label">
+			$(this).find('tr td:nth-child('+ i +')').attr("data-label", head_col_label);
+		}
+		});
+	}
+	
+	// Responsive Table
+	if( $(".tableScroll").length){
+		$(".tableScroll").each(function(){
+			$(this).wrap('<div class="tableOut"></div>');
+		});
+	}
+	
 	// Back to Top function
 	if( $("#backtotop").length){
 		$(window).scroll(function(){
@@ -124,63 +172,69 @@ $(document).ready( function(){
 		});
 	};
 	
-	
-// Responsive Table
-	if( $(".tableData").length){
-		$(".tableData").each(function(){
-		$(this).wrap('<div class="tableOut"></div>');
-		$(this).find('td').removeAttr('width');$(this).find('td').removeAttr('align');
-		var head_col_count =  $(this).find('tr th').size();
-		// loop which replaces td
-		for ( i=0; i <= head_col_count; i++ )  {
-			// head column label extraction
-			var head_col_label = $(this).find('tr th:nth-child('+ i +')').text();
-			// replaces td with <div class="column" data-label="label">
-			$(this).find('tr td:nth-child('+ i +')').attr("data-label", head_col_label);
-		}
+	// Get Focus Inputbox
+	if( $(".getFocus").length){
+			$(".getFocus").each(function(){
+			$(this).on("focus", function(){
+			if ($(this).val() == $(this)[0].defaultValue) { $(this).val("");};
+		  }).on("blur", function(){
+			  if ($(this).val() == "") {$(this).val($(this)[0].defaultValue);};
+		  });								  
 		});
-	}
-// 	prettyPhoto
-	if( $("*[rel^='prettyPhoto']").length > 0){
-		$("*[rel^='prettyPhoto']").prettyPhoto({autoplay_slideshow: false, social_tools: false, deeplinking:false});;
-		$(".gallery:first a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'normal',theme:'light_square',slideshow:3000, autoplay_slideshow: true, social_tools: false, deeplinking:false});
-		$(".gallery:gt(0) a[rel^='prettyPhoto']").prettyPhoto({animation_speed:'fast',slideshow:10000, hideflash: true, social_tools: false, deeplinking:false});
 	};
 	
-// Video JS
-		if( $("#player_a").length){
-		projekktor('#player_a', {
-        poster: 'media/intro.png',
-        title: 'this is projekktor',
-        playerFlashMP4: 'swf/StrobeMediaPlayback/StrobeMediaPlayback.swf',
-        playerFlashMP3: 'swf/StrobeMediaPlayback/StrobeMediaPlayback.swf',
-        width: 640,
-        height: 385,
-		fullscreen:true,
-        playlist: [
-            {0: {src: "images/intro.mp4", type: "video/mp4"}}
-        ]    
-        }, function(player) {} // on ready 
-        );
-		}
-
 	// For device checking
 	if (isMobile == false) {
 	
 	}
+	if( $("#gmap").length){	
+		var map = new google.maps.Map(document.getElementById('gmap'), {
+		zoom: 15,
+		center: new google.maps.LatLng(23.021666 , 72.55464),
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+		});
+		var infoWindow = new google.maps.InfoWindow;
+		var onMarkerClick = function() {
+		  var marker = this;
+		  var latLng = marker.getPosition();
+		  infoWindow.setContent('<strong>Jayanti Solanki</strong><br>Friends Colony,<br>Ambavadi,<br>Ahmedabad, Gujarat 380006');
+		  infoWindow.open(map, marker);
+		};
+		google.maps.event.addListener(map, 'click', function() {
+		  infoWindow.close();
+		});
+		var marker = new google.maps.Marker({
+		  map: map,
+		  position: new google.maps.LatLng(23.021666 , 72.55464)
+		});
+		google.maps.event.addListener(marker, 'click', onMarkerClick);
+	}
+	if( $(".litebox").length){	
+		$('.litebox').liteBox();
+	}
+	
+	/*================= On Document Load and Resize Start =================*/
+	$(window).on('resize', function () {
+			
+    }).trigger('resize');
+	/*================= On Document Load and Resize End =================*/
+	
+});
+/*================= On Document Load End =================*/
+
+/*================= On Window Resize Start =================*/	
+$(window).bind('resize orientationchange', function() {
+	ww = document.body.clientWidth;
 	
 });
 
-$(window).bind('resize orientationchange', function() {
-	ww = document.body.clientWidth;
-	adjustMenu();
-	if (ww <= 800) {
-		$('.tabbing').responsiveTabs({
-			startCollapsed: 'tab', //accordion
-			collapsible: 'tab' //accordion
+/*================= On Window Resize End =================*/	
 
-		});	
-	}
+/*================= On Window Load Start =================*/
+$(window).load(function() {
+						
 });
+/*================= On Document Load End =================*/
+
 })(jQuery);
 

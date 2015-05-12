@@ -1,4 +1,5 @@
 <?php get_header(); ?>
+<?php get_sidebar(); ?>
 <div class="siteContent" role="main">
 <?php
 	while ( have_posts() ) : the_post();
@@ -9,7 +10,4 @@
 	endwhile;
 ?>
 </div>
-<?php
-get_sidebar();
-get_footer();
-?>
+<?php get_footer(); ?>

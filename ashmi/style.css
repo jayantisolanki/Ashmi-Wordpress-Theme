@@ -23,9 +23,9 @@ b,strong,dt,th {font-weight: bold;}
 em, i { font-style:italic;}
 p,h1,h2,h3,h4,h5,h6, ul,ol,dd,table,fieldset,address {margin: 0 0 25px;}
 h1,h2,h3,h4,h5,h6 { font-weight:300}
-h1 {font-size: 26px;}
-h2 {font-size: 24px;}
-h3 {font-size: 22px;}
+h1 {font-size: 32px;}
+h2 {font-size: 28px;}
+h3 {font-size: 24px;}
 h4 {font-size: 20px;}
 h5 {font-size: 18px;}
 h6 {font-size: 16px;}
@@ -53,48 +53,58 @@ input[type="submit"], input[type="button"],input[type="reset"],button,.button{li
 label {padding-bottom:5px; display:block; font-weight:bold;}
 .screen-reader-text {clip: rect(1px, 1px, 1px, 1px);position: absolute;}
 .hide, .displayNone {display: none;}
-a, a:visited {outline: none;color: #0054a6;}
-a:hover {color: #333;}
+a, a:visited {outline: none;color: #000;}
+a:hover {color: #0054a6;}
 .alignleft {float: left;}
 .alignright {float: right;}
 .aligncenter {display: block;margin-left: auto;margin-right: auto;}
 /* Clear floats */ 
-.clear:before, .clear:after,.container:before, .container:after, .row:before, .row:after, ul:before, ul:after, .boxs:before, .boxs:after, .entryContent:after, .entryContent:before {content:" ";display:table}
-.clear:after, .container:after, .row:after, ul:after, page:after, post:after, .entryContent:after{clear:both}
+.clear:before, .clear:after,.container:before, .container:after, .row:before, .row:after,  #wrapper ul:before, #wrapper ul:after, .boxs:before, .boxs:after, .entryContent:after, .entryContent:before {content:" ";display:table}
+.clear:after, .container:after, .row:after,  #wrapper ul:after, page:after, post:after, .entryContent:after{clear:both}
 /*Structure*/
-body{font-size:14px; font-family: "Open Sans", Helvetica, Arial, sans-serif; color: #444; text-rendering: optimizeLegibility; background-color:#f1f1f1;}
+body,button,input,select,textarea {color: #222;font-family: "Open Sans", Helvetica, Arial, sans-serif;font-size: 15px; text-rendering: optimizeLegibility; line-height: 1.6;}
+body{background-color:#fff;}
 .container {width:1170px; margin:0 auto; position:relative}
-.container:before{background-color:#ffffff;content: "";display: block;height: 100%;min-height: 100%;position: absolute;top: 0;right:72%;width:50%;z-index: 2; border-right:1px solid #ebebeb}
-.siteContent {float:right; width:68%; padding-top:47px;}
-#sidebar {float:left; width:28%;padding:0 25px 130px; position:relative; z-index:3}
+.siteContent {float:right; width:68%;}
+.fullWidth{ float:none; width:auto}
+#sidebar {float:left; width:29%;padding:0; position:relative; z-index:3; background-color:#fff}
 /*Site Header*/
-.headerImage {-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%; width:150px; height:150px; margin:25px 0;}
-.logo {margin:15px 0; font-size:35px; font-weight:normal}
-.logo a { text-decoration:none}
-#mainNav {margin:30px 0}
-.menu-toggle { display:none;}
-#mainNav ul { list-style:none; margin:0; padding:0}
-#mainNav ul li{ background-color:#f1f1f1; margin-bottom:1px;}
-#mainNav ul li a {  display:block; padding:10px 20px; text-decoration:none;}
-#mainNav ul li a:hover { background-color:#0054a6; color:#fff}
+#header .container { position:relative; border-bottom:5px solid #000; margin-bottom:40px;}
+.headerImage {margin:25px 0; clear:both}
+#logo {float:left; margin:20px 0;  font-size:35px; font-weight:normal}
+#logo a { text-decoration:none;}
+/* ******** Navigation ******** */
+.menuToggle, .menuToggle:focus { float:right; padding:0; background:none; border:none; color:#000; position:absolute; right:0; top:27px; font-size:24px;}
+.menuToggle .genericon {font-size:23px;}
+.menuToggle:hover { background:none; color:#2297f3}
+#siteNavigation {z-index:9999; position:relative; float:right; margin:29px 30px 0 0; display:none}
+.mainMenu, .mainMenu ul { list-style:none; margin:0; padding:0;z-index:122}
+.mainMenu li { float:left; margin:0; padding:0 5px; position:relative; z-index:122; display:inline }
+.mainMenu li a{ padding:5px 15px; line-height:25px; color:#111; display:inline-block; text-decoration:none;	border:1px solid transparent; } 
+.mainMenu .current-menu-item > a, .mainMenu .current-menu-item > a:hover {background-color:#fff; border-color:#0054a6; color:#0054a6}
+.mainMenu li a:hover { color:#0054a6}
+
 /*Content Area*/
-.siteContent article { margin-bottom:45px; background-color:#fff; padding:25px;}
-.postThumbnail { margin:-25px -25px 25px}
+.siteContent article { margin-bottom:45px; background-color:#fff; padding:0;}
+.postThumbnail {}
 /*Post Content*/
 .entryTitle { font-weight:normal;padding-bottom:15px;border-bottom:1px solid #dcdcdc;margin-bottom:25px;position:relative;}
 .entryTitle:before{content:"";display:block;position:absolute;width:40px;height:1px;bottom:-1px;left:0;background-color:#0054a6}
 .entryTitle a { text-decoration:none;}
 .entryContent { padding-bottom:25px;}
-.entryMeta {margin:0 -25px -25px; border-top:1px solid #F2F2F2; background-color:#f7f7f7; padding:25px;}
+.entryMeta {border-top:1px solid #F2F2F2; background-color:#f7f7f7; padding:25px;}
 .entryMeta span { padding-right:10px;}
 .entryMeta a { text-decoration:none;}
-.postNavigation { margin:25px -25px -25px; padding:25px; text-align:center;}
+.postNavigation {padding:25px; text-align:center;}
 .postNavigation a { display:inline-block; margin:0 10px;}
 /*Comment*/
 .comment-list, .comment-list ul { list-style:none; margin:0; padding:0}
 .comment-list li { margin-top:25px;}
 .comment-list ul { padding-left:25px;}
 .siteContent .comment-list article { margin:0}
+.siteContent .avatar { float:left; margin-right:25px;}
+.comment-list .comment-meta { margin-bottom:10px;}
+.comment-list .comment-metadata { display:block;}
 #respond { padding:25px 0 0}
 /*Index Navigation*/
 .postsNav { padding:25px;border-top:1px solid #F2F2F2; background-color:#f7f7f7; color:#f7f7f7; text-align:center;}
@@ -109,7 +119,8 @@ body{font-size:14px; font-family: "Open Sans", Helvetica, Arial, sans-serif; col
 .widgetTitle:before{content:"";display:block;position:absolute;width:40px;height:1px;bottom:-1px;left:0;background-color:#0054a6}
 .widget_search label { display:inline-block; width:73%}
 /*Footer*/
-.siteInfo { position:absolute; left:25px; bottom:20px; line-height:1.8;}
+#footer { text-align:center; margin-top:25px;}
+.siteInfo {line-height:1.8;background-color:#fff; padding:15px 0; border-top:5px solid #000;}
 /*Gallery*/
 .gallery {}
 .gallery-item {float: left; width:100%; text-align:center; position: relative;}

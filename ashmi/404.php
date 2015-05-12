@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-
+<?php get_sidebar(); ?>
 <div class="siteContent" role="main">
   <article>
     <h1 class="entryTitle">Not Found</h1>

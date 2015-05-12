@@ -1,4 +1,5 @@
 <?php get_header(); ?>
+<?php get_sidebar(); ?>
 <div class="siteContent" role="main">
 <?php
 	if ( have_posts() ) :

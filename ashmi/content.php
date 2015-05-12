@@ -30,7 +30,7 @@
 		<?php comments_popup_link( 'No comments yet', '1 comment', '% comments', 'comments-link', 'Comments are off for this post'); ?>
 		</span>
 	<?php endif; ?>     
-	<span class="entryEdit"><?php edit_post_link('Edit'); ?>  </span>
+	<span class="entryEdit"> <i class="fa fa-pencil"></i> <?php edit_post_link('Edit'); ?>  </span>
   </div>
   <?php endif; ?>
   <?php wp_link_pages(); ?>
